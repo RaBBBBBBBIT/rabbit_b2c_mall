@@ -1,0 +1,29 @@
+server:
+  port: ${EMPLOYEE_SERVER_PORT:8082}
+
+spring:
+  application:
+    name: employee-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
+        namespace: ${NACOS_NAMESPACE:}
+      config:
+        server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
+        namespace: ${NACOS_NAMESPACE:}
+  datasource:
+    driver-class-name: org.sqlite.JDBC
+    url: ${EMPLOYEE_DB_URL:jdbc:sqlite:./b2c_mall_employee.db}
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    database: ${REDIS_DATABASE:0}
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+employee:
+  default-avatar-url: ${DEFAULT_AVATAR_URL:}

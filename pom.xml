@@ -12,6 +12,7 @@
         <module>gateway</module>
         <module>shop</module>
         <module>common</module>
+        <module>employee</module>
     </modules>
 
     <properties>

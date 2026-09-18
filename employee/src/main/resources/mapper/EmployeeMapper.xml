@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rabbit.mall.employee.dao.mapper.EmployeeMapper">
+
+    <insert id="save" parameterType="com.rabbit.mall.employee.dao.po.EmployeePO"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tb_employee (shop_id, username, password, avatar_url)
+        VALUES (#{shopId}, #{username}, #{password}, #{avatarUrl})
+    </insert>
+
+    <select id="getEmployee" resultType="com.rabbit.mall.employee.dao.po.EmployeePO">
+        select
+            id,
+            shop_id as shopId,
+            username,
+            password,
+            avatar_url as avatarUrl,
+            last_login_time as lastLoginTime,
+            login_count as loginCount,
+            status,
+            created_at as createdAt,
+            updated_at as updatedAt
+        from tb_employee
+        where shop_id = #{shopId} and username = #{username}
+    </select>
+
+</mapper>
