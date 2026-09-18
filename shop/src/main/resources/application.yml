@@ -15,6 +15,6 @@ spring:
   datasource:
     driver-class-name: org.sqlite.JDBC
     url: ${SHOP_DB_URL:jdbc:sqlite:./b2c_mall_shop.db}
-    
+
 mybatis:
   mapper-locations: classpath:mapper/*.xml
