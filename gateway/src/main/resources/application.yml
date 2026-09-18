@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${GATEWAY_SERVER_PORT:8080}
 
 spring:
   application:
@@ -7,11 +7,11 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 47.100.22.158:8848
-        namespace: rabbit
+        server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
+        namespace: ${NACOS_NAMESPACE:}
       config:
-        server-addr: 47.100.22.158:8848
-        namespace: rabbit
+        server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
+        namespace: ${NACOS_NAMESPACE:}
     gateway:
       routes:
         # 👉 shop服务路由

@@ -40,3 +40,8 @@ build/
 ### SQLite DB (runtime data) ###
 *.db
 *.db-journal
+
+### Local environment variables (keep .env.example) ###
+.env
+.env.local
+.env.*.local
