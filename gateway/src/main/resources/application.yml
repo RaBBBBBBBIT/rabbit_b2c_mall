@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gate-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 47.100.22.158:8848
+        namespace: rabbit
+      config:
+        server-addr: 47.100.22.158:8848
+        namespace: rabbit
+    gateway:
+      routes:
+        # 👉 shop服务路由
+        - id: shop
+          uri: lb://shop-service
+          predicates:
+            - Path=/api/shop/**
+          filters:
+            - StripPrefix=1  # 去掉第一层前缀 /api

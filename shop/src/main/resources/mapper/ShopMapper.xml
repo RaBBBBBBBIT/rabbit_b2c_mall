@@ -1,0 +1,3 @@
+<select id="selectList" resultType="com.rabbit.mall.shop.dao.po.ShopPO">
+    SELECT id, name FROM shop
+</select>

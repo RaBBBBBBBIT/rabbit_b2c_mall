@@ -1,0 +1,17 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: shop-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 47.100.22.158:8848
+        namespace: rabbit
+      config:
+        server-addr: 47.100.22.158:8848
+        namespace: rabbit
+  datasource:
+    driver-class-name: org.sqlite.JDBC
+    url: jdbc:sqlite:/Users/rabbit/Documents/rabbit_b2c_mall/b2c_mall_shop.db
