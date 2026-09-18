@@ -1,13 +1,17 @@
 package com.rabbit.mall.shop.web;
 
+import com.rabbit.mall.common.response.BaseResponseVO;
 import com.rabbit.mall.shop.dao.po.ShopPO;
 import com.rabbit.mall.shop.service.ShopService;
-import com.rabbit.mall.shop.web.request.ShopRegisterRequestVo;
+import com.rabbit.mall.shop.web.request.ShopRegisterRequestVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
@@ -24,14 +28,10 @@ public class ShopController {
     }
 
     @PostMapping("/register")
-    public String registerShop(ShopRegisterRequestVo shopRegisterRequestVo) {
-//        shopService.registerShop(shopRegisterRequestVo);
-        return "success";
+    public BaseResponseVO<?> register(@RequestBody @Validated ShopRegisterRequestVO req) {
+        shopService.register(req);
+        return new BaseResponseVO<>();
     }
 
-    @GetMapping("/list")
-    public List<ShopPO> list() {
-        return shopService.listShop();
-    }
 
 }

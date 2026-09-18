@@ -1,3 +1,14 @@
-<select id="selectList" resultType="com.rabbit.mall.shop.dao.po.ShopPO">
-    SELECT id, name FROM shop
-</select>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rabbit.mall.shop.dao.mapper.ShopMapper">
+
+    <insert id="registerShop" parameterType="com.rabbit.mall.shop.dao.po.ShopPO"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tb_shop (shop_name, admin_account, admin_password, logo_url, status)
+        VALUES (#{shopName}, #{adminAccount}, #{adminPassword}, #{logoUrl}, #{status});
+    </insert>
+
+    <select id="exist" parameterType="string" resultType="int">
+        select count(1) from tb_shop where shop_name = #{shopName}
+    </select>
+</mapper>
