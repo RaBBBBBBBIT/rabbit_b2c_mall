@@ -9,6 +9,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 
 import java.util.concurrent.Executors;
+import org.springframework.web.client.RestTemplate;
 
 @EnableDiscoveryClient
 @SpringBootApplication
@@ -19,6 +20,9 @@ public class ShopApplication {
     public EventBus eventBus() {
         return new AsyncEventBus(Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors()));
     }
+
+    @Bean
+    public RestTemplate restTemplate() { return new RestTemplate(); }
 
     public static void main(String[] args) {
         SpringApplication.run(ShopApplication.class, args);

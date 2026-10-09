@@ -7,4 +7,5 @@ public interface EmployeeService {
     Integer addEmployee(AddEmployeeRequestVO vo);
     String login(LoginRequestVO req);
     boolean checkToken(String token);
+    boolean logout(String token);
 }

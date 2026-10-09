@@ -1,0 +1,25 @@
+server:
+  port: ${ORDER_SERVER_PORT:8084}
+spring:
+  application:
+    name: order-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_SERVER_ADDR:localhost:8848}
+  datasource:
+    driver-class-name: org.sqlite.JDBC
+    url: ${ORDER_DB_URL:jdbc:sqlite:./b2c_mall_order.db}
+  sql:
+    init:
+      mode: always
+jwt:
+  token:
+    key: ${JWT_TOKEN_KEY:local-dev-only-change-this-secret-32chars}
+employee:
+  service-url: ${EMPLOYEE_SERVICE_URL:http://localhost:8082}
+product:
+  service-url: ${PRODUCT_SERVICE_URL:http://localhost:8083}
+mall:
+  internal:
+    token: ${INTERNAL_SERVICE_TOKEN:local-internal-token-change-me}

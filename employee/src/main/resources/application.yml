@@ -15,6 +15,9 @@ spring:
   datasource:
     driver-class-name: org.sqlite.JDBC
     url: ${EMPLOYEE_DB_URL:jdbc:sqlite:./b2c_mall_employee.db}
+  sql:
+    init:
+      mode: always
   redis:
     host: ${REDIS_HOST:localhost}
     port: ${REDIS_PORT:6379}
@@ -27,3 +30,12 @@ mybatis:
 
 employee:
   default-avatar-url: ${DEFAULT_AVATAR_URL:}
+
+jwt:
+  token:
+    key: ${JWT_TOKEN_KEY:local-dev-only-change-this-secret-32chars}
+    ttl-seconds: ${JWT_TTL_SECONDS:86400}
+
+mall:
+  internal:
+    token: ${INTERNAL_SERVICE_TOKEN:local-internal-token-change-me}

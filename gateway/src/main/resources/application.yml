@@ -21,3 +21,21 @@ spring:
             - Path=/api/shop/**
           filters:
             - StripPrefix=1  # 去掉第一层前缀 /api
+        - id: employee
+          uri: lb://employee-service
+          predicates:
+            - Path=/api/employee/**
+          filters:
+            - StripPrefix=1
+        - id: product
+          uri: lb://product-service
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - StripPrefix=1
+        - id: order
+          uri: lb://order-service
+          predicates:
+            - Path=/api/order/**
+          filters:
+            - StripPrefix=1

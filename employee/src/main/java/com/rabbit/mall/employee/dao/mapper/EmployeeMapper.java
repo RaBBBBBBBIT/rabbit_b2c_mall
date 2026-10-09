@@ -9,4 +9,5 @@ public interface EmployeeMapper {
     Integer save(EmployeePO po);
 
     EmployeePO getEmployee(@Param("shopId") Integer shopId, @Param("username") String username);
+    int updateLoginInfo(@Param("id") Integer id);
 }

@@ -43,7 +43,7 @@ public class ShopController {
         event.setAdminPwd(req.getAdminPassword());
         eventBus.post(event);
 
-        return new BaseResponseVO<>();
+        return new BaseResponseVO<>(id);
     }
 
 

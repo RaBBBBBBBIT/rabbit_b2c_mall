@@ -1,0 +1,30 @@
+CREATE TABLE IF NOT EXISTS orders (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  order_no TEXT NOT NULL UNIQUE,
+  shop_id INTEGER NOT NULL,
+  employee_id INTEGER NOT NULL,
+  total_amount NUMERIC NOT NULL CHECK(total_amount >= 0),
+  status TEXT NOT NULL CHECK(status IN ('WAIT_PAY','PAID','SHIPPED','COMPLETED','CANCELLED')),
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS order_items (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  order_id INTEGER NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
+  product_id INTEGER NOT NULL,
+  product_name TEXT NOT NULL,
+  unit_price NUMERIC NOT NULL,
+  quantity INTEGER NOT NULL CHECK(quantity > 0),
+  subtotal NUMERIC NOT NULL
+);
+CREATE TABLE IF NOT EXISTS order_status_logs (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  order_id INTEGER NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
+  from_status TEXT,
+  to_status TEXT NOT NULL,
+  actor_id INTEGER,
+  note TEXT,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_orders_shop_status ON orders(shop_id,status,id);
+CREATE INDEX IF NOT EXISTS idx_order_items_order ON order_items(order_id,id);

@@ -20,7 +20,7 @@ public class InitShopMessageEventHandle implements InitializingBean {
 
     @Subscribe
     public void handler(ShopRegisterEvent event) {
-        log.info("收到注册成功事件：{}, 插入欢迎消息", event);
+        log.info("收到店铺注册事件，shopId={}，创建欢迎消息", event.getShopId());
         messageService.saveWelcomeMessage(event.getShopId(), "欢迎注册本系统", "系统规范，系统规约");
     }
     @Override

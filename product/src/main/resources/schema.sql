@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS products (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  shop_id INTEGER NOT NULL,
+  creator_id INTEGER NOT NULL,
+  name TEXT NOT NULL,
+  description TEXT,
+  type TEXT NOT NULL DEFAULT 'physical',
+  price NUMERIC NOT NULL CHECK(price > 0),
+  stock INTEGER NOT NULL DEFAULT 0 CHECK(stock >= 0),
+  status INTEGER NOT NULL DEFAULT 0 CHECK(status IN (0,1)),
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_products_shop_status ON products(shop_id,status,id);

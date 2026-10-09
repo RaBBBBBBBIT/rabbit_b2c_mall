@@ -1,6 +1,5 @@
 package com.rabbit.mall.shop.service.impl;
 
-import cn.hutool.core.lang.Assert;
 import com.rabbit.mall.shop.dao.mapper.ShopMapper;
 import com.rabbit.mall.shop.dao.po.ShopPO;
 import com.rabbit.mall.shop.service.ShopService;
@@ -8,29 +7,36 @@ import com.rabbit.mall.shop.web.request.ShopRegisterRequestVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.dao.DuplicateKeyException;
 
 import java.util.List;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
 public class ShopServiceImpl implements ShopService {
     @Autowired
     private ShopMapper shopMapper;
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
+    @Transactional
     public Integer register(ShopRegisterRequestVO vo) {
         int count = shopMapper.exist(vo.getShopName());
-        Assert.equals(count, 0, "店铺名已存在");
+        if (count != 0) throw new org.springframework.web.server.ResponseStatusException(
+                org.springframework.http.HttpStatus.CONFLICT, "shop name already exists");
 
         ShopPO shopPO = new ShopPO();
         BeanUtils.copyProperties(vo, shopPO);
+        shopPO.setAdminPassword(passwordEncoder.encode(vo.getAdminPassword()));
         shopPO.setStatus(1);
 
-        Assert.notBlank(shopPO.getShopName());
-        Assert.notBlank(shopPO.getAdminAccount());
-        Assert.notBlank(shopPO.getAdminPassword());
-
-        int row = shopMapper.registerShop(shopPO);
-        Assert.equals(row, 1, "保存到数据库异常");
+        int row;
+        try { row = shopMapper.registerShop(shopPO); }
+        catch (DuplicateKeyException ex) { throw new org.springframework.web.server.ResponseStatusException(
+                org.springframework.http.HttpStatus.CONFLICT, "shop name already exists"); }
+        if (row != 1) throw new IllegalStateException("failed to save shop");
         return shopPO.getId();
     }
 

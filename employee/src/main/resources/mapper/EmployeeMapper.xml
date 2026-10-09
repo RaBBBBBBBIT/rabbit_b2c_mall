@@ -4,8 +4,8 @@
 
     <insert id="save" parameterType="com.rabbit.mall.employee.dao.po.EmployeePO"
             useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO tb_employee (shop_id, username, password, avatar_url)
-        VALUES (#{shopId}, #{username}, #{password}, #{avatarUrl})
+        INSERT INTO tb_employee (shop_id, username, password, avatar_url, status, login_count)
+        VALUES (#{shopId}, #{username}, #{password}, #{avatarUrl}, 1, 0)
     </insert>
 
     <select id="getEmployee" resultType="com.rabbit.mall.employee.dao.po.EmployeePO">
@@ -23,5 +23,11 @@
         from tb_employee
         where shop_id = #{shopId} and username = #{username}
     </select>
+
+    <update id="updateLoginInfo">
+        UPDATE tb_employee
+        SET last_login_time=CURRENT_TIMESTAMP, login_count=COALESCE(login_count,0)+1, updated_at=CURRENT_TIMESTAMP
+        WHERE id=#{id} AND status=1
+    </update>
 
 </mapper>

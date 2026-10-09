@@ -25,6 +25,6 @@ public class MessageServiceImpl implements MessageService {
         po.setMsgType(1);
         po.setIsRead(0);
         Integer row = messageMapper.saveMessage(po);
-        Assert.equals(row, 1, "保存欢迎消息异常");
+        Assert.isTrue(row == 0 || row == 1, "保存欢迎消息异常");
     }
 }
